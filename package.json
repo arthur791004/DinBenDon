@@ -13,6 +13,10 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "axios": "~0.18.0",
+    "mobx": "~5.0.4",
+    "mobx-react": "~5.2.5",
+    "query-string": "~6.1.0",
     "react": "~16.4.2",
     "react-dom": "~16.4.2",
     "shortid": "~2.2.13",
@@ -23,6 +27,7 @@
     "babel-plugin-transform-class-properties": "~6.24.1",
     "babel-plugin-transform-object-rest-spread": "~6.26.0",
     "babel-preset-env": "~1.7.0",
+    "babel-preset-mobx": "~1.0.3",
     "babel-preset-react": "~6.24.1",
     "cross-env": "~5.2.0",
     "gh-pages": "~1.2.0",
