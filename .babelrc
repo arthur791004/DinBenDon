@@ -1,8 +1,7 @@
 {
   "presets": [
     "env",
-    "react",
-    "mobx"
+    "react"
   ],
   "plugins": [
     ["module-resolver", {
@@ -10,6 +9,7 @@
         "@": "./src"
       }
     }],
+    "transform-decorators-legacy",
     "transform-class-properties",
     "transform-object-rest-spread"
   ]
