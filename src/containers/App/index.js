@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { observer } from 'mobx-react';
+import { withStoresConsumer } from '@/components/StoresContext';
+import LoginSlack from '@/components/LoginSlack';
 
-const App = () => {
+const App = ({ loginStore }) => {
+  const { user } = loginStore;
+
   return (
-    <h1>DinBenDon</h1>
+    <div>
+      <h1>DinBenDon</h1>
+      {user ? (
+        <div>Hello, {user.name}</div>
+      ) : (
+        <LoginSlack />
+      )}
+    </div>
   );
 };
 
-export default App;
+export default withStoresConsumer(observer(App), [
+  'loginStore',
+]);
