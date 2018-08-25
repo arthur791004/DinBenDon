@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 
 const StoresContext = createContext();
 
-const getRequireStores = (context, requireStores) => {
+const getRequireStores = (context = {}, requireStores) => {
   const stores = requireStores || [];
 
   if (stores.length === 0) {
@@ -11,7 +11,7 @@ const getRequireStores = (context, requireStores) => {
 
   return stores.reduce((acc, cur) => ({
     ...acc,
-    [cur]: context[cur],
+    [cur]: context[cur] || {},
   }), {});
 };
 

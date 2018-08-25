@@ -1,10 +1,9 @@
-import { configure } from 'mobx';
 import loginStore from './login';
-
-configure({ enforceActions: true });
+import messageStore from './message';
 
 const stores = {
   loginStore,
+  messageStore,
 };
 
 export default stores;

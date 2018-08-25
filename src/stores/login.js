@@ -1,38 +1,35 @@
 import { autorun, observable, action } from 'mobx';
-import axios from 'axios';
-import { getAccessURL } from '@/services/slack/utils';
+import * as SlackService from '@/services/Slack';
+import StorageService from '@/services/Storage';
+import { STORAGES } from '@/services/Storage/constants';
+
+const { ACCESS_TOKEN, CURRENT_USER_ID, CURRENT_USER_PROFILE } = STORAGES;
 
 class LoginStore {
   @observable isLoading = false;
   @observable error = null;
   @observable accessToken = null;
-  @observable user = null;
+  @observable userID = null;
+  @observable userProfile = null;
 
   constructor() {
+    this.accessToken = StorageService.getItem(ACCESS_TOKEN);
+    this.userID = StorageService.getItem(CURRENT_USER_ID);
+    this.userProfile = StorageService.getItem(CURRENT_USER_PROFILE);
+
     autorun(() => console.log('autorun', this));
   }
 
   @action.bound
   getLoginInfo(code) {
-    if (!code) {
-      return;
-    }
-
-    const accessURL = getAccessURL(code);
-
     this.setIsLoading(true);
 
-    axios.get(accessURL)
-      .then(rs => rs.data)
-      .then(({ ok, error, ...results }) => {
-        this.setIsLoading(false);
-
-        if (!ok) {
-          return this.setError(error);
-        }
-
-        return this.setLoginInfo(results);
-      });
+    SlackService.getLoginInfo(code)
+      .then(results => this.setLoginInfo(results))
+      .then(() => SlackService.getUserProfile(this.userID))
+      .then(results => this.setLoginProfile(results))
+      .catch(error => this.setError(error))
+      .then(() => this.setIsLoading(false));
   };
 
   @action.bound
@@ -41,14 +38,24 @@ class LoginStore {
   }
 
   @action.bound
-  setLoginInfo({ access_token, user }) {
+  setLoginInfo({ access_token, user_id }) {
+    StorageService.setItem(ACCESS_TOKEN, access_token);
+    StorageService.setItem(CURRENT_USER_ID, user_id);
+
     this.accessToken = access_token;
-    this.user = user;
+    this.userID = user_id;
+  }
+
+  @action.bound
+  setLoginProfile({ profile }) {
+    StorageService.setItem(CURRENT_USER_PROFILE, profile);
+
+    this.userProfile = profile;
   }
 
   @action.bound
   setError(error) {
-    this.error = error;
+    this.error = error.message;
   }
 }
 

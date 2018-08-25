@@ -2,19 +2,23 @@ import React, { Fragment } from 'react';
 import { observer } from 'mobx-react';
 import { withStoresConsumer } from '@/components/StoresContext';
 import LoginSlack from '@/components/LoginSlack';
+import OrderList from '@/components/OrderList';
 
 const App = ({ loginStore }) => {
-  const { user } = loginStore;
+  const { userID, userProfile } = loginStore;
 
   return (
-    <div>
+    <Fragment>
       <h1>DinBenDon</h1>
-      {user ? (
-        <div>Hello, {user.name}</div>
+      {userProfile ? (
+        <Fragment>
+          <div>Hello, {userProfile.real_name}</div>
+          <OrderList userID={userID} />
+        </Fragment>
       ) : (
         <LoginSlack />
       )}
-    </div>
+    </Fragment>
   );
 };
 

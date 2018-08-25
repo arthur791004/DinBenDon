@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { observer } from 'mobx-react';
 import { parse } from 'query-string';
-import { getAuthURL } from '@/services/slack/utils';
+import { getAuthURL } from '@/services/Slack/utils';
 import { withStoresConsumer } from '@/components/StoresContext';
 
 @observer
