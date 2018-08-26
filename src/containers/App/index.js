@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 import styled from 'styled-components';
 import loginStore from '@/stores/login';
 import withStores from '@/components/withStores';
@@ -16,6 +17,7 @@ const App = ({ loginStore }) => {
 
   return (
     <Wrapper>
+      {process.env.NODE_ENV !== 'production' && <DevTools />}
       {isLoggedIn ? <HomePage /> : <LoginPage />}
     </Wrapper>
   );

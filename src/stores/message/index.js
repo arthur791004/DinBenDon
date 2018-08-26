@@ -1,4 +1,4 @@
-import { autorun, observable, action } from 'mobx';
+import { observable, action } from 'mobx';
 import * as SlackService from '@/services/Slack';
 import { LUNCH_INFO } from '@/services/Slack/constants';
 import { parseShop, parseOrder, parseCount } from './utils';
@@ -6,10 +6,6 @@ import { parseShop, parseOrder, parseCount } from './utils';
 class MessageStore {
   @observable isLoading = false;
   @observable orderList = null;
-
-  constructor() {
-    autorun(() => console.log('autorun', this));
-  }
 
   @action.bound
   getOrderInfo(userID) {

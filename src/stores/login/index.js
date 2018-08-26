@@ -1,4 +1,4 @@
-import { autorun, observable, action, computed } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import * as SlackService from '@/services/Slack';
 import StorageService from '@/services/Storage';
 import { STORAGES } from '@/services/Storage/constants';
@@ -16,8 +16,6 @@ class LoginStore {
     this.accessToken = StorageService.getItem(ACCESS_TOKEN);
     this.userID = StorageService.getItem(CURRENT_USER_ID);
     this.userProfile = StorageService.getItem(CURRENT_USER_PROFILE);
-
-    autorun(() => console.log('autorun', this));
   }
 
   @computed get isLoggedIn() {
