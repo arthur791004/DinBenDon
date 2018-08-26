@@ -24,13 +24,24 @@ class LoginStore {
   getLoginInfo(code) {
     this.setIsLoading(true);
 
-    SlackService.getLoginInfo(code)
+    SlackService.getLoginInfo(code, this.logout)
       .then(results => this.setLoginInfo(results))
       .then(() => SlackService.getUserProfile(this.userID))
       .then(results => this.setLoginProfile(results))
       .catch(error => this.setError(error))
       .then(() => this.setIsLoading(false));
   };
+
+  @action.bound
+  logout() {
+    StorageService.removeItem(ACCESS_TOKEN);
+    StorageService.removeItem(CURRENT_USER_ID);
+    StorageService.removeItem(CURRENT_USER_PROFILE);
+
+    this.accessToken = null;
+    this.userID = null;
+    this.userProfile = null;
+  }
 
   @action.bound
   setIsLoading(isLoading) {

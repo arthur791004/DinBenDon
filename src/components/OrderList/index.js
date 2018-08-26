@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { withStoresConsumer } from '@/components/StoresContext';
+import messageStore from '@/stores/message';
+import withStores from '@/components/withStores';
 
 @observer
 class OrderList extends Component {
@@ -31,6 +32,4 @@ class OrderList extends Component {
   }
 }
 
-export default withStoresConsumer(OrderList, [
-  'messageStore',
-]);
+export default withStores(OrderList, { messageStore });

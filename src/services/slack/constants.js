@@ -13,3 +13,7 @@ export const LUNCH_INFO = {
   CHANNEL_NAME: 'all-lunch',
   BOT_NAME: 'dailylunch',
 };
+
+export const ERROR_CODES = {
+  TOKEN_REVOKED: 'token_revoked',
+};

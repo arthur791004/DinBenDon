@@ -2,7 +2,8 @@ import React, { Fragment, Component } from 'react';
 import { observer } from 'mobx-react';
 import { parse } from 'query-string';
 import { getAuthURL } from '@/services/Slack/utils';
-import { withStoresConsumer } from '@/components/StoresContext';
+import loginStore from '@/stores/login';
+import withStores from '@/components/withStores';
 
 @observer
 class LoginSlack extends Component {
@@ -35,6 +36,4 @@ class LoginSlack extends Component {
   }
 }
 
-export default withStoresConsumer(LoginSlack, [
-  'loginStore',
-]);
+export default withStores(LoginSlack, { loginStore });

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { observer } from 'mobx-react';
-import { withStoresConsumer } from '@/components/StoresContext';
+import loginStore from '@/stores/login';
+import withStores from '@/components/withStores';
 import LoginSlack from '@/components/LoginSlack';
 import OrderList from '@/components/OrderList';
 
@@ -22,6 +23,4 @@ const App = ({ loginStore }) => {
   );
 };
 
-export default withStoresConsumer(observer(App), [
-  'loginStore',
-]);
+export default withStores(observer(App), { loginStore });
