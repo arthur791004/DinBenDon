@@ -1,6 +1,7 @@
 import { autorun, observable, action } from 'mobx';
 import * as SlackService from '@/services/Slack';
 import { LUNCH_INFO } from '@/services/Slack/constants';
+import { parseShop, parseOrder, parseCount } from './utils';
 
 class MessageStore {
   @observable isLoading = false;
@@ -34,10 +35,15 @@ class MessageStore {
 
     this.orderList = messages.matches
       .map(({ text, attachments }) => ({
-        text,
-        orders: attachments.filter(({ text }) => text && text.includes(userID)),
-      }))
-      .filter(({ orders }) => orders.length);
+        ...parseShop(text),
+        orders: attachments
+          .filter(({ text }) => text && text.includes(userID))
+          .map(({ id, title, text }) => ({
+            ...parseOrder(title),
+            count: parseCount(text, userID),
+            id,
+          })),
+      }));
   }
 
   @action.bound

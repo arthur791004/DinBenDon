@@ -1,4 +1,4 @@
-import { autorun, observable, action } from 'mobx';
+import { autorun, observable, action, computed } from 'mobx';
 import * as SlackService from '@/services/Slack';
 import StorageService from '@/services/Storage';
 import { STORAGES } from '@/services/Storage/constants';
@@ -20,6 +20,10 @@ class LoginStore {
     autorun(() => console.log('autorun', this));
   }
 
+  @computed get isLoggedIn() {
+    return this.accessToken && this.userID && this.userProfile;
+  }
+
   @action.bound
   getLoginInfo(code) {
     this.setIsLoading(true);
@@ -28,6 +32,9 @@ class LoginStore {
       .then(results => this.setLoginInfo(results))
       .then(() => SlackService.getUserProfile(this.userID))
       .then(results => this.setLoginProfile(results))
+      .then(() => {
+        window.location.href = window.location.href.split('?')[0];
+      })
       .catch(error => this.setError(error))
       .then(() => this.setIsLoading(false));
   };

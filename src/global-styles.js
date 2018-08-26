@@ -15,6 +15,7 @@ injectGlobal`
 
   #app {
     height: 100%;
+    overflow-y: auto;
   }
 
   body,

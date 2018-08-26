@@ -1,39 +1,18 @@
-import React, { Fragment, Component } from 'react';
-import { observer } from 'mobx-react';
-import { parse } from 'query-string';
+import React from 'react';
 import { getAuthURL } from '@/services/Slack/utils';
-import loginStore from '@/stores/login';
-import withStores from '@/components/withStores';
 
-@observer
-class LoginSlack extends Component {
-  componentDidMount() {
-    const { code } = parse(window.location.search);
+const authURL = getAuthURL();
 
-    if (code) {
-      this.props.loginStore.getLoginInfo(code);
-    }
-  }
+const LoginSlack = () => (
+  <a href={authURL}>
+    <img
+      alt="Sign in with Slack"
+      height="40"
+      width="172"
+      src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
+      srcSet="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"
+    />
+  </a>
+);
 
-  render() {
-    const { isLoading, error } = this.props.loginStore;
-
-    return (
-      <Fragment>
-        {isLoading && <div>Loading...</div>}
-        {error && <div>{error}</div>}
-        <a href={getAuthURL()}>
-          <img
-            alt="Sign in with Slack"
-            height="40"
-            width="172"
-            src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
-            srcSet="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"
-          />
-        </a>
-      </Fragment>
-    );
-  }
-}
-
-export default withStores(LoginSlack, { loginStore });
+export default LoginSlack;

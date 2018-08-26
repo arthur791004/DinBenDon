@@ -1,5 +1,5 @@
 class Storage {
-  storage = window.sessionStorage;
+  storage = window.localStorage;
 
   setItem(key, value) {
     this.storage.setItem(key, JSON.stringify(value));

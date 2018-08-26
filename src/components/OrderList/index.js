@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { observer } from 'mobx-react';
+import groupBy from 'lodash/groupBy';
 import messageStore from '@/stores/message';
 import withStores from '@/components/withStores';
+import Loading from '@/components/Loading';
+import { DIN_BEN_DON_HISTORY } from './messages';
+import OrderCard from './OrderCard';
+
+const Wrapper = styled.div`
+  max-width: 600px;
+  width: 100%;
+  padding: 0 15px;
+`;
 
 @observer
 class OrderList extends Component {
@@ -12,22 +23,31 @@ class OrderList extends Component {
   }
 
   render() {
-    const { orderList } = this.props.messageStore;
+    const { orderList, isLoading } = this.props.messageStore;
+    const orderListByDate = groupBy(orderList || [], 'date');
 
     return (
-      <div>
-        <h1>OrderList</h1>
-        {orderList && orderList.map(({ text, orders }, index) => (
-          <div key={index}>
-            <h3>{text}</h3>
-            <ul>
-              {orders.map(order => (
-                <li key={order.id}>{order.title}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <Wrapper>
+        <h3 className="mb-3">{DIN_BEN_DON_HISTORY}</h3>
+        {isLoading ? (
+          <Loading className="mx-auto mt-4" size={40} />
+        ) : (
+          Object.keys(orderListByDate).map((date, index, array) => {
+            /* filter out last day because its messages may not be enough */
+            if (index === array.length - 1) {
+              return null;
+            }
+
+            return (
+              <OrderCard
+                key={date}
+                date={date}
+                shops={orderListByDate[date].filter(({ orders}) => orders.length)}
+              />
+            );
+          })
+        )}
+      </Wrapper>
     );
   }
 }

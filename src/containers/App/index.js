@@ -1,25 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
+import styled from 'styled-components';
 import loginStore from '@/stores/login';
 import withStores from '@/components/withStores';
-import LoginSlack from '@/components/LoginSlack';
-import OrderList from '@/components/OrderList';
+import HomePage from '@/pages/Home';
+import LoginPage from '@/pages/Login';
+
+const Wrapper = styled.div`
+  height: 100%;
+  margin: auto;
+`;
 
 const App = ({ loginStore }) => {
-  const { userID, userProfile } = loginStore;
+  const { isLoggedIn } = loginStore;
 
   return (
-    <Fragment>
-      <h1>DinBenDon</h1>
-      {userProfile ? (
-        <Fragment>
-          <div>Hello, {userProfile.real_name}</div>
-          <OrderList userID={userID} />
-        </Fragment>
-      ) : (
-        <LoginSlack />
-      )}
-    </Fragment>
+    <Wrapper>
+      {isLoggedIn ? <HomePage /> : <LoginPage />}
+    </Wrapper>
   );
 };
 
