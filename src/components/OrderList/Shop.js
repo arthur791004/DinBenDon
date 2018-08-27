@@ -7,7 +7,7 @@ const Td = styled.td`
 `;
 
 const Shop = ({ name, floor, orders }) => (
-  <table className="table table-borderless table-hover d-flex flex-column mb-0">
+  <table className="table table-borderless d-flex flex-column mb-0">
     <thead>
       <tr>
         <td className="d-flex align-items-center">
