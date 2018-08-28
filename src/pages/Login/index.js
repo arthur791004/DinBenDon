@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import { parse } from 'query-string';
-import { PROJECT_NAME } from '@/constants/messages';
+import { APP_NAME } from '@/constants/messages';
 import loginStore from '@/stores/login';
 import withStores from '@/components/withStores';
 import Loading from '@/components/Loading';
@@ -46,7 +46,7 @@ class Login extends Component {
           <Fragment>
             {error && <Error children={error} />}
 
-            <h3 className="mb-5 font-weight-bold">{PROJECT_NAME}</h3>
+            <h3 className="mb-5 font-weight-bold">{APP_NAME}</h3>
             <LoginSlack />
           </Fragment>
         )}

@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import { PROJECT_NAME } from '@/constants/messages';
+import { APP_NAME } from '@/constants/messages';
 import { width } from '@/utils/styles';
 import loginStore from '@/stores/login';
 import withStores from '@/components/withStores';
@@ -40,7 +41,7 @@ const Home = ({ loginStore }) => {
   return (
     <Fragment>
       <nav className="navbar navbar-dark bg-dark text-white mb-4">
-        <a className="navbar-brand" href="#">{PROJECT_NAME}</a>
+        <a className="navbar-brand" href="/">{APP_NAME}</a>
         <div className="d-flex align-items-center">
           <Avatar className="mx-2" src={userProfile.image_48} />
           <div>{userProfile.real_name}</div>
@@ -48,7 +49,10 @@ const Home = ({ loginStore }) => {
         </div>
       </nav>
       <Content>
-        <OrderList userID={userID} />
+        <Switch location={location}>
+          <Route exact path="/shops" render={() => <div>shops</div>} />
+          <Route render={() => <OrderList userID={userID} />} />
+        </Switch>
       </Content>
     </Fragment>
   );
