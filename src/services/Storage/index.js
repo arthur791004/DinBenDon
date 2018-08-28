@@ -1,5 +1,9 @@
+import MemoryStorage from './MemoryStorage';
+
 class Storage {
-  storage = window.localStorage;
+  storage = typeof window !== 'undefined' && window.localStorage
+    ? window.localStorage
+    : new MemoryStorage();
 
   setItem(key, value) {
     this.storage.setItem(key, JSON.stringify(value));

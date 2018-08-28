@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import flatten from 'lodash/flatten';
-import { BUDGETS } from './constants';
-import {
-  SHOP_NAME,
-  ORDER_NAME,
-  ORDER_COUNT,
-  ORDER_PRICE,
-} from './messages';
 import Budget from './Budget';
 import Date from './Date';
 import Shop from './Shop';

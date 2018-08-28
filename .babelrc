@@ -1,16 +1,30 @@
 {
   "presets": [
-    "env",
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
-    ["module-resolver", {
-      "alias": {
-        "@": "./src"
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@": "./src"
+        }
       }
-    }],
-    "transform-decorators-legacy",
-    "transform-class-properties",
-    "transform-object-rest-spread"
+    ],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ],
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-async-to-generator"
   ]
 }

@@ -27,13 +27,14 @@ export const getUserProfile = (userID) => {
     .then(handleResponse);
 }
 
-export const searchMessages = (query) => {
+export const searchMessages = (query, options) => {
   if (!query) {
     return handleError('Invalid query');
   }
 
   const url = 'https://slack.com/api/search.messages';
-  const params = getParams({ query });
+  const { count = 20, page = 1 } = options || {};
+  const params = getParams({ query, count, page });
 
   return axios.post(url, params)
     .then(handleResponse);
