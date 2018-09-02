@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import groupBy from 'lodash/groupBy';
 import messageStore from '@/stores/message';
-import withStores from '@/components/withStores';
 import Loading from '@/components/Loading';
 import { DIN_BEN_DON_HISTORY } from './messages';
 import OrderCard from './OrderCard';
@@ -17,13 +16,13 @@ const Wrapper = styled.div`
 @observer
 class OrderList extends Component {
   componentDidMount() {
-    const { userID, messageStore } = this.props;
+    const { userID } = this.props;
 
     messageStore.getOrderInfo(userID);
   }
 
   render() {
-    const { orderList, isLoading } = this.props.messageStore;
+    const { orderList, isLoading } = messageStore;
     const orderListByDate = groupBy(orderList || [], 'date');
 
     return (
@@ -52,4 +51,4 @@ class OrderList extends Component {
   }
 }
 
-export default withStores(OrderList, { messageStore });
+export default OrderList;

@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import { PROJECT_NAME } from '@/constants/messages';
+import { APP_NAME } from '@/constants/messages';
 import { width } from '@/utils/styles';
 import loginStore from '@/stores/login';
-import withStores from '@/components/withStores';
-import OrderList from '@/components/OrderList';
+import OrderList from '@/containers/OrderList';
 import { LOGOUT } from './messages';
 
 const Avatar = styled.img`
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
 
   @media only screen and (max-width: 600px) {
@@ -30,7 +29,7 @@ const Content = styled.div.attrs({
   ${width};
 `;
 
-const Home = ({ loginStore }) => {
+const Home = () => {
   const { isLoggedIn, userID, userProfile, logout } = loginStore;
 
   if (!isLoggedIn) {
@@ -40,7 +39,7 @@ const Home = ({ loginStore }) => {
   return (
     <Fragment>
       <nav className="navbar navbar-dark bg-dark text-white mb-4">
-        <a className="navbar-brand" href="#">{PROJECT_NAME}</a>
+        <a className="navbar-brand" href="#">{APP_NAME}</a>
         <div className="d-flex align-items-center">
           <Avatar className="mx-2" src={userProfile.image_48} />
           <div>{userProfile.real_name}</div>
@@ -54,4 +53,4 @@ const Home = ({ loginStore }) => {
   );
 };
 
-export default withStores(observer(Home), { loginStore });
+export default observer(Home);

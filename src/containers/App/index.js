@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 import styled from 'styled-components';
 import loginStore from '@/stores/login';
-import withStores from '@/components/withStores';
 import HomePage from '@/pages/Home';
 import LoginPage from '@/pages/Login';
 
@@ -12,7 +11,7 @@ const Wrapper = styled.div`
   margin: auto;
 `;
 
-const App = ({ loginStore }) => {
+const App = () => {
   const { isLoggedIn } = loginStore;
 
   return (
@@ -23,4 +22,4 @@ const App = ({ loginStore }) => {
   );
 };
 
-export default withStores(observer(App), { loginStore });
+export default observer(App);
