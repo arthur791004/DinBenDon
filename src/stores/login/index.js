@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import FirebaseService from '@/services/Firebase';
 import * as SlackService from '@/services/Slack';
 import StorageService from '@/services/Storage';
 import { STORAGES } from '@/services/Storage/constants';
@@ -42,6 +43,7 @@ class LoginStore {
     StorageService.removeItem(ACCESS_TOKEN);
     StorageService.removeItem(CURRENT_USER_ID);
     StorageService.removeItem(CURRENT_USER_PROFILE);
+    FirebaseService.removeUserNotification(this.userID);
 
     this.accessToken = null;
     this.userID = null;
@@ -60,6 +62,8 @@ class LoginStore {
 
     this.accessToken = access_token;
     this.userID = user_id;
+
+    return FirebaseService.setUserNotification(user_id);
   }
 
   @action.bound
