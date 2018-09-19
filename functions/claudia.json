@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "functions-executor",
+    "name": "functions",
+    "region": "ap-northeast-1"
+  }
+}
